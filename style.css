@@ -1,0 +1,23 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+
+.container{
+    margin:0 auto;
+    width:500px;
+    height:100px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.block{
+    height:100%;
+    font-size:20px;
+    text-align:center;
+    color:purple;
+    background:rgb(76, 255, 0);
+    border:1px solid black;
+}
