@@ -7,104 +7,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
-    <title>Homework 5</title>
+    <title>Homework 7</title>
 </head>
 
 <body>
- 
-
-       <!--��������� ��� ������ � ���� script. �����������, � ������� �������� ������, �� �������, ��� � �������� ������ ����� ��� ������������.
-
-        ```-->
-        <p class="dropdown">������ :)</p>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-            </button>
-            <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
 
 
+    <p class="super_element">Привет</p>
 
-        <div class="container" >
-            <div class="tasks">
-                <a href="#"><div class="task task1"><div class="box">task 1</div></div></a>
-                <a href="#"><div class="task task2"><div class="box">task 2</div></div></a>
-                <a href="#"><div class="task task3"><div class="box">task 3</div></div></a>
-                <a href="#"><div class="task task4"><div class="box">task 4</div></div></a>
-                <a href="#"><div class="task task5"><div class="box">task 5</div></div></a>
-                <a href="#"><div class="task task6"><div class="box">task 6</div></div></a>
-                <a href="#"><div class="task task7"><div class="box">task 7</div></div></a>
-                <!--<a href="#"><div class="task task8"><div class="box">task 8</div></div></a>-->
-            </div>
-        </div >
+    <img src="https://placeimg.com/50/50/animals" alt="">
+    <img src="https://placeimg.com/50/50/arch" alt="">
+    <img src="https://placeimg.com/50/50/nature" alt="">
+    <img src="https://placeimg.com/50/50/people" alt="">
+    <img src="https://placeimg.com/50/50/tech" alt="">
+    <img src="https://placeimg.com/50/50/tech/grayscale" alt="">
+    <img src="https://placeimg.com/50/50/tech/sepia" alt="">
+
+    <br>
+
+    <button>Кнопка</button>
+    <button class="super_element">Кнопка с классом btn</button>
+    <button>Кнопка</button>
+
+    <br>
+
+    <textarea></textarea>
+
+    <br>
+
+    <ul>
+        <li>
+            <button>Кнопка 1</button>
+        </li>
+        <li>
+            <button>Кнопка 2</button>
+        </li>
+        <li>
+            <button>Кнопка 3</button>
+        </li>
+        <li>
+            <button>Кнопка 4</button>
+        </li>
+    </ul>
 
 
-        <script>
+    <script>
 
-            //1. �� ���� ���������, ������� ����� "dropdown-item" �������� ��� ���� ����� "super-dropdown", ���������� ������������ ������ forEach � querySelectorAll � �������� classList � ���������.
-            document.querySelector('.task1').addEventListener("click", function (e) {
-                [...document.querySelectorAll(".dropdown-item")].forEach(element => element.classList.add("super-dropdown"));
+        //1. Необходимо вывести сообщение в консоль "все теги прогрузились", когда все теги будут созданы браузером.
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("все теги прогрузились");
+        })
 
-                [...document.querySelectorAll(".dropdown-item")].forEach(element => console.log(element));
-            });
+        //2. Необходимо вывести сообщение в консоль "страница загрузилась", когда все ресурсы страницы будут загружены.
 
-            //2. � �������� � ������� btn ���������� ������ ����� "btn-secondary", ���� �� ������������ � ����� ��������, ���� ��������, ���� ������ ������ � �������� �� ����.
-            document.querySelector('.task2').addEventListener("click", function (e) {
-                [...document.querySelectorAll(".btn")].forEach(element => {
-                    if (element.className.includes("btn-secondary")) {
-                        element.classList.remove("btn-secondary");
-                    } else {
-                        element.classList.add("btn-secondary");
-                    }
-                    console.log(element);
-                });
-            });
+        window.onload = () => {
+            console.log("страница загрузилась");
+        }
 
-            //3. ���������� ������� ����� "dropdown-menu" � ��������, � �������� ������������ ����� "menu".
-            document.querySelector('.task3').addEventListener("click", function (e) {
-                let element3 = document.querySelector(".menu");
-                if (element3.className.includes("dropdown-menu")) {
-                    element3.classList.remove("dropdown-menu");
-                    console.log(element3)
-                 } 
-            });
+        //3. При клике на какой-либо тег на странице в консоль должно выводиться сообщение наподобие:
+            //- Класс "super_element" присутствует в элементе "div".
+            //- сообщение должно определять присутствует или отсутствует класс "super_element"
+            //- у элемента, а также выводить в нижнем регистре верный тег в данной строке, по
+            //- которому был совершен клик.
+            //- Необходимо использовать делегирование.
+        document.addEventListener('click', function (e) {
+            if (e.target.className.includes("super_element")) {
+                console.log('Класс "super_element" присутствует в элементе "div"');
+            } else {
+                console.log('Класс "super_element" отсутствует в элементе "div"');
+            }
+            console.log(e.target.tagName);
+        })
 
-            // 4. ��������� ����� insertAdjacentHTML �������� ����� div'a � ������� "dropdown" ��������� ��������:`<a href="#">link</a>`
-            document.querySelector('.task4').addEventListener("click", function (e) {
-                document.querySelector(".dropdown").insertAdjacentHTML('afterend','<a href="#">link</a>');
-                
-            });
+        // 4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение: "Вы навели на textarea."
+        document.querySelector('textarea').addEventListener('mouseenter', function (e) { console.log("Вы навели на textarea.") })
+        
+        // 5. Необходимо повесить событие клика на тег ul. В обработчике события в консоль необходимо выводить текст, который записан внутри элемента кнопки, по которой был произведен клик. Если клик был не по кнопке, то ничего выводить не нужно. Необходимо использовать делегирование.
+        document.querySelector('ul').addEventListener('click', function (e) {
+            if (e.target.tagName == 'BUTTON') {
+                console.log(e.target.textContent);
+            }
+        })
+        
+        //6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только потом выводится текст из 3 задания, если мы кликаем по кнопкам в ul? Ответ необходимо написать здесь же, под этим комментарием, своими словами.
+        //Т.к.addEventListener взят по умолчанию (сapture:false) - он ловит событие на всплытии. При этом слушатель из задания 5 ближе к цели чем из задания 3
 
-            // 5. � �������� � id "dropdownMenuButton" �������� id �� "superDropdown".
-            document.querySelector('.task5').addEventListener("click", function (e) {
-                let element5 = document.querySelector("#dropdownMenuButton");
-                element5.setAttribute('id', 'superDropdown');
-                console.log(element5);
-            });
+        //7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
+        let element7 = document.querySelector('ul')
+        for (let i = 0; i < element7.children.length; i++) {
+            if (i % 2 == 0) {
+                element7.children[i].style.background = "yellow";
+            }
+        } 
 
-            //6. �������� ������� data - dd �� ��������� 3 �������� � �������� ���������� ������� "aria-labelledby" ������ "dropdownMenuButton" ��������� dataset.
-            document.querySelector('.task6').addEventListener("click", function (e) {
-                let element6 = document.querySelector('[aria-labelledby]');
-                element6.setAttribute('data-dd', '3');
-                console.log(element6)
-            });
+    </script>
 
-            //7. ������� ������� type � �������� � ������� "dropdown-toggle"
-            document.querySelector('.task7').addEventListener("click", function (e) {
-                let element7 = document.querySelector(".dropdown-toggle");
-                if (element7.hasAttribute('type')) {
-                    element7.removeAttribute('type');
-                    console.log(element7)
-                }
-            });
-
-        </script>
-
-    </body >
+</body>
 
 </html >
