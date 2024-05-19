@@ -8,29 +8,6 @@
     margin:0 auto;
 }
 
-.tasks{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-}
-
-.task {
-    padding:20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background:green;
-}
-
-.task:hover {
-    background: red;
-}
-
-.task:hover .box{
-    color:green;
-}
-
-
-.box{
-    color:red;
+.error {
+    box-shadow: 0px 0px 10px 0px rgba(255,0,0,0.8);
 }
