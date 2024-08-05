@@ -15,7 +15,6 @@
     box-shadow: 0px 0px 10px 10px red;
 }
 
-
 .window{
     position:fixed;
     top:0;
@@ -25,8 +24,6 @@
     background-color: black;
 }
 
-
-
 .img{
     position:fixed;
     width:33.3vw;
@@ -35,11 +32,35 @@
     left:33.3vw;
 }
 
+.slider{
+    position:fixed;
+    width:20vw;
+    height:10vh;
+    top:80vh;
+    left:40vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:1vw;
+}
+
+.pointer{
+    width:2vw;
+    height: 2vw;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:black;
+    cursor: pointer;
+}
+
+
 .handler{
     position:fixed;
     width:33.3vw;
     height:10vh;
-    top:80vh;
+    top:20vh;
     left:33.3vw;
 
     display:flex;
@@ -91,6 +112,14 @@
     pointer-events: none;
     color:grey;
 }
+
+
+
+
+
+
+
+
 
 
 

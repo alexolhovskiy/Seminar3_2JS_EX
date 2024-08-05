@@ -1,104 +1,73 @@
-console.log("Hi!")
 
-let arr=JSON.parse(data);
-console.log(arr);
+const img = document.querySelector('.img');
+const accessKey = 'NNqU6NwYF2naWaXdTgVxjSe_K6AdmUQKg2vogoKAHJc'; 
+let button=document.querySelector(".button");
+var data;
 
-let num=arr.length,frame=5;
-if(num<frame){
-    frame=num;
+if((localStorage.length==0)|(localStorage.getItem("liked_photos")===null)){
+    button.classList.toggle("a_b");
+    button.classList.toggle("d_b");
 }
-let img=document.querySelector(".img");
-img.src = 'img2/'+arr[0].name;
-let slider=document.querySelector(".slider");
-var id=0,index=0;
 
-function addPoints(){
-    slider.insertAdjacentHTML('beforeend',`<img id="5" class="pointer" src="__2208.png"></img>`);
-    slider.insertAdjacentHTML('beforeend',`<div id="${0}" class="pointer selection">${1}</div>`);
-    for (let i = 1; i < frame; i++) {
-        slider.insertAdjacentHTML('beforeend',`<div id="${i}" class="pointer">${i+1}</div>`);
+
+function putToStorage(data){
+    let liked_photos;
+    if(localStorage.getItem("liked_photos")===null){
+        liked_photos=new Array();
+        button.classList.toggle("a_b");
+        button.classList.toggle("d_b");
+    }else{
+        liked_photos=JSON.parse(localStorage.getItem("liked_photos"));
     }
-    slider.insertAdjacentHTML('beforeend',`<img id="6" class="pointer" src="__2207.png"></img>`);
+    liked_photos.push({"id":data.id,"key":accessKey,"liked":true});
+    localStorage.setItem("liked_photos",JSON.stringify(liked_photos));
 }
 
-addPoints();
 
-function sliderShift(shift){
-    for(var i=0;i<slider.children.length;i++){
-        if(Number(slider.children[i].getAttribute("id"))<5){
-            slider.children[i].textContent=+(Number(slider.children[i].textContent)+shift);
-        }
+async function fetchRandomPhoto() {
+    try {
+        const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}`);
+        const data = await response.json();
+        console.log(data);
+        return data;            
+    } catch (error) {
+        console.error('Ошибка при получении фото с Unsplash:', error);
     }
 }
 
-function idShift(oldId,newId){
-    document.querySelector("#"+CSS.escape(oldId)).classList.toggle("selection");
-    document.querySelector("#"+CSS.escape(newId)).classList.toggle("selection");
-    id=newId;
+
+async function getPhoto(){
+    data=await fetchRandomPhoto();
+    img.src = data.urls.regular;
+    document.getElementById("author").innerHTML=data.user.name;
+    document.getElementById("likes_cnt").innerHTML=data.likes;
 }
 
-slider.addEventListener("click",(e)=>{
-    switch(e.target.getAttribute("id")){
-        
-        case "0":idShift(id,0);break;
-        case "1":idShift(id,1);break;
-        case "2":idShift(id,2);break;
-        case "3":idShift(id,3);break;
-        case "4":idShift(id,4);break;
-        case "5":
-            if(num>frame){
-                if(id>2){
-                    idShift(id,id-1);
-                }else{
-                    if(index>0){
-                        index--;
-                        sliderShift(-1);
-                    }else{
-                        if(id>0){
-                            idShift(id,id-1);
-                        }else{
-                            sliderShift(num-frame);
-                            index=num-frame;
-                            idShift(id,(frame-1));
-                        }
-                    }
-                }
-            }else{
-                if(id>0){
-                    idShift(id,id-1);
-                }else{
-                    idShift(id,(frame-1));
-                }
-            }
-            break;
 
-        case "6":
-            if(num>frame){
-                if(id<2){
-                    idShift(id,id+1);
-                }else{
-                    if(index<(num-frame)){
-                        index++;
-                        sliderShift(1);
-                    }else{
-                        if(id<(frame-1)){
-                            idShift(id,id+1);
-                        }else{
-                            sliderShift(-index);
-                            index=0;
-                            idShift(id,0);
-                        }
-                    }
-                }
-            }else{
-                if(id<(frame-1)){
-                    idShift(id,id+1);
-                }else{
-                    idShift(id,0);
-                }
-            }
-            break;
+
+let heart=document.getElementById("heart");
+heart.addEventListener("click",()=>{
+    if(heart.classList.contains("disactive")){
+        data.likes+=1;        
+    }else{
+        data.likes-=1;
     }
-    //console.log(id+" "+index);
-    img.src = 'img2/'+arr[index+id].name;
+    heart.classList.toggle("disactive");
+    heart.classList.toggle("active");
+    document.getElementById("likes_cnt").innerHTML=data.likes;
+    putToStorage(data);
+    
 });
+
+
+
+button.addEventListener("click",()=>{
+    window.location.href="view.html";
+})
+
+
+
+
+
+window.addEventListener('load', getPhoto);
+
