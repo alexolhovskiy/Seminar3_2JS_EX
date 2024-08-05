@@ -4,9 +4,11 @@ const accessKey = 'NNqU6NwYF2naWaXdTgVxjSe_K6AdmUQKg2vogoKAHJc';
 let button=document.querySelector(".button");
 var data;
 
-if((localStorage.length==0)|(localStorage.getItem("liked_photos")===null)){
-    button.classList.toggle("a_b");
+if((localStorage.length==0)|(localStorage.getItem("liked_photos")===null)|
+(JSON.parse(localStorage.getItem("liked_photos")).length==0)){
     button.classList.toggle("d_b");
+}else{
+    button.classList.toggle("a_b");
 }
 
 
