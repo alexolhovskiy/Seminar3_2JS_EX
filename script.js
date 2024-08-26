@@ -1,75 +1,95 @@
+console.log("Hello");
 
-const img = document.querySelector('.img');
-const accessKey = 'NNqU6NwYF2naWaXdTgVxjSe_K6AdmUQKg2vogoKAHJc'; 
-let button=document.querySelector(".button");
-var data;
+//1
 
-if((localStorage.length==0)|(localStorage.getItem("liked_photos")===null)|
-(JSON.parse(localStorage.getItem("liked_photos")).length==0)){
-    button.classList.toggle("d_b");
-}else{
-    button.classList.toggle("a_b");
-}
+const musicCollection=[];
 
-
-function putToStorage(data){
-    let liked_photos;
-    if(localStorage.getItem("liked_photos")===null){
-        liked_photos=new Array();
-        button.classList.toggle("a_b");
-        button.classList.toggle("d_b");
-    }else{
-        liked_photos=JSON.parse(localStorage.getItem("liked_photos"));
-    }
-    liked_photos.push({"id":data.id,"key":accessKey,"liked":true});
-    localStorage.setItem("liked_photos",JSON.stringify(liked_photos));
-}
-
-
-async function fetchRandomPhoto() {
-    try {
-        const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}`);
-        const data = await response.json();
-        console.log(data);
-        return data;            
-    } catch (error) {
-        console.error('Ошибка при получении фото с Unsplash:', error);
+musicCollection[Symbol.iterator]=function(){
+    return {
+        current:0,
+        end:this.length,
+        next(){
+            return this.current < this.end ? {
+                done:false,
+                value:`Name ${musicCollection[this.current].title}, Artist ${musicCollection[this.current].artist}, Year ${musicCollection[this.current++].year}`
+            } : {done:true}; 
+        }
     }
 }
 
 
-async function getPhoto(){
-    data=await fetchRandomPhoto();
-    img.src = data.urls.regular;
-    document.getElementById("author").innerHTML=data.user.name;
-    document.getElementById("likes_cnt").innerHTML=data.likes;
+musicCollection.push({title: "A",artist: "Misha",year: "1980"});
+musicCollection.push({title: "B",artist: "Pasha",year: "1990"});
+musicCollection.push({title: "C",artist: "Grisha",year: "1982"});
+musicCollection.push({title: "D",artist: "Masha",year: "1989"});
+musicCollection.push({title: "E",artist: "Makar",year: "1956"});
+
+
+for(var album of musicCollection){
+    console.log(album);
 }
 
 
+//2
 
-let heart=document.getElementById("heart");
-heart.addEventListener("click",()=>{
-    if(heart.classList.contains("disactive")){
-        data.likes+=1;        
-    }else{
-        data.likes-=1;
-    }
-    heart.classList.toggle("disactive");
-    heart.classList.toggle("active");
-    document.getElementById("likes_cnt").innerHTML=data.likes;
-    putToStorage(data);
-    
+
+const cookers=new Map();
+cookers.set("Пицца 'Маргарита'","Виктор");
+cookers.set("Пицца 'Пепперони'","Виктор");
+cookers.set("Суши 'Филадельфия'","Ольга");
+cookers.set("Суши 'Калифорния'","Ольга");
+cookers.set("Тирамису","Дмитрий");
+cookers.set("Чизкейк","Дмитрий");
+
+const clients=new Map();
+clients.set("Алексей",["Пицца 'Пепперони'","Тирамису"]);
+clients.set("Мария",["Суши 'Калифорния'","Пицца 'Маргарита'"]);
+clients.set("Ирина",["Чизкейк"]);
+
+clients.entries().forEach((item)=>{
+    console.log(`Над заказом клиента ${item[0]} работают повора:`);
+    item[1].forEach((i)=>{
+        console.log(`Над ${i} - повор ${cookers.get(i)}`);
+    });
 });
 
 
 
-button.addEventListener("click",()=>{
-    window.location.href="view.html";
-})
 
 
 
 
 
-window.addEventListener('load', getPhoto);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
