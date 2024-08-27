@@ -3,12 +3,38 @@
     padding:0;
 }
 
+body{
+    background-color: grey;
+}
+
+header{
+    height:200px;
+    background-color: rgb(100,100,100);
+}
 
 .container{
-    margin:0 auto;
+    width:100%;    
+    margin:20px;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:20px;
+}
+
+.wrap{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+.button{
+    padding: 10px;
     display:flex;
     justify-content: center;
-    background:grey;
+    align-items: center;
+    background-color: aliceblue;
 }
 
 .error {
@@ -16,7 +42,73 @@
 }
 
 .window{
-    width:300px;
-    height:300px;
+    width:40vw;
+    height:30vh;
     border:2px solid red;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.comments{
+    width:40vw;
+    height:30vh;
+    border:2px solid yellow;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.comment{
+    margin-left:10px;
+}
+
+footer{
+    height:200px;
+    background-color: rgb(100,100,100);
+}
+
+.put_comment{
+    width:40vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+#b_c{
+    padding: 3px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+#i_c{
+    width:95%;
+}
+
+#e_c{
+    color:white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

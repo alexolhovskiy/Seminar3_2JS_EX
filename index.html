@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS-Ex</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- <script defer type="module" src="modul.js"></script> -->
+
     <script defer src="script.js"></script>
 </head>
 <body>
+    <header></header>
     <div class="container">
-        <div class="window">
-
-            <div class="one">1</div>
-
-            <div class="two">2</div>
-
-            <div data-active="true">3</div>
-
-            <div data-active="Sasha">4</div>
-
-            <div class="Three">5</div>
-
-            <div class="two">6</div>
-
+        <button id="prev" class="button">Prev</button>
+        <div class="wrap">
+            <div class="window"></div>
+            <div class="comments">
+            </div>
+            <div class="put_comment">
+                <input id="i_c" type="text"/>
+                <p id="e_c"></p>
+                <button id="b_c">Comment</button>
+            </div>
+            
         </div>
+        <button id="next" class="button">Next</button>
     </div>
+    <footer></footer>
 </body>
 </html>
