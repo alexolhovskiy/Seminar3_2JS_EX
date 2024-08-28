@@ -2,74 +2,6 @@ console.log("Hello");
 
 //1
 
-class Library{
-    #book_list=new Map();
-    constructor(book_list){
-        this.#book_list=book_list;   
-    }
-
-    addBook(title,book){
-        if(this.#book_list.has(title)){
-            throw new Error("Book is already exists!");
-        }
-        this.#book_list.set(title,book);
-    }
-
-    getAllBooks(){
-        return this.#book_list;
-    }
-
-    removeBook(title){
-        if(this.#book_list.has(title)){
-            this.#book_list.delete(title);
-        }else{
-            throw new Error("Book is already removed!");
-        }
-    }
-
-    hasBook(title){
-        if(this.#book_list.has(title)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    printAllBooks(){
-        console.log("++++++++++++++++++++++++++++++++++++++++++");
-        this.#book_list.entries().forEach(item=>console.log(`${item[1].title},${item[1].author},${item[1].year}`));
-    }
-}
-
-let start_list=new Map();
-start_list.set("My live",{title:"My live",author:"Sasha",year:"2024"});
-
-const lib = new Library(start_list);
-lib.addBook("Goodby",{title:"Goodby",author:"Grisha",year:"1987"});
-lib.addBook("Hello",{title:"Hello",author:"Buba",year:"2020"});
-lib.addBook("G",{title:"G",author:"Juk",year:"2000"});
-
-
-lib.printAllBooks();
-
-lib.removeBook("G");
-
-lib.printAllBooks();
-
-if(lib.hasBook("Hello")){
-    let otherLib=lib.getAllBooks();
-    console.log(otherLib);
-}
-
-lib.printAllBooks();
-
-lib.addBook("B",{title:"B",author:"Puk",year:"2001"});
-
-lib.printAllBooks();
-
-
-//2
-
 
 const initialData = [
     {
@@ -105,6 +37,18 @@ const initialData = [
     },
 ];
 
+localStorage.clear();
+
+initialData.forEach((item)=>{
+    temp=[];
+    item.reviews.forEach((i)=>{
+        temp.push(i.text)
+    });
+    localStorage.setItem(item.product,JSON.stringify(temp));
+});
+
+
+
 let index=0;
 let comment_id=4;
 
@@ -113,12 +57,14 @@ let win=document.querySelector(".window");
 let comments=document.querySelector(".comments");
 let c_e=document.querySelector("#e_c");
 
+
 function fillTemplate(){
-    win.innerHTML=`<div class="window">${initialData[index].product}</div>`
+
+    win.innerHTML=`<div class="window">${localStorage.key(index)}</div>`
     comments.innerHTML="";
-    initialData[index].reviews.forEach(item=>{
+    JSON.parse(localStorage.getItem(localStorage.key(index))).forEach(item=>{
         comments.insertAdjacentHTML("beforeend",`
-                <p class="comment">${item.text}</p>
+                <p class="comment">${item}</p>
             `)
     });
 }
@@ -129,7 +75,7 @@ document.getElementById("prev").addEventListener("click",()=>{
     if(index>0){
         index--;
     }else{
-        index=initialData.length-1;
+        index=localStorage.length-1;
     }
     fillTemplate();
     c_e.innerHTML='';
@@ -137,7 +83,7 @@ document.getElementById("prev").addEventListener("click",()=>{
 
 
 document.getElementById("next").addEventListener("click",()=>{
-    if(index<initialData.length-1){
+    if(index<localStorage.length-1){
         index++;
     }else{
         index=0;
@@ -148,14 +94,16 @@ document.getElementById("next").addEventListener("click",()=>{
 
 document.getElementById("b_c").addEventListener("click",()=>{
     let t=document.getElementById("i_c").value
-    console.log(t);
+    // console.log(t);
     try{
         if(t.length<50 || t.length >500){
             throw new Error("God! Are you crazy!? You write too short or too long message!");
         }else{
             c_e.innerHTML='';
             comment_id++;
-            initialData[index].reviews.push({text:t,id:comment_id});
+            let temp=JSON.parse(localStorage.getItem(localStorage.key(index)));
+            temp.push(t);
+            localStorage.setItem(localStorage.key(index),JSON.stringify(temp));
         }
     }catch(error){
         c_e.innerHTML=error.message;
@@ -164,21 +112,6 @@ document.getElementById("b_c").addEventListener("click",()=>{
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+document.getElementById("s_c").addEventListener("click",()=>{
+    location.href="./products.html" 
+});
