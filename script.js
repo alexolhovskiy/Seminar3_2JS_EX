@@ -37,16 +37,7 @@ const initialData = [
     },
 ];
 
-localStorage.clear();
-
-initialData.forEach((item)=>{
-    temp=[];
-    item.reviews.forEach((i)=>{
-        temp.push(i.text)
-    });
-    localStorage.setItem(item.product,JSON.stringify(temp));
-});
-
+// localStorage.clear();
 
 
 let index=0;
@@ -60,12 +51,25 @@ let c_e=document.querySelector("#e_c");
 
 function fillTemplate(){
 
-    win.innerHTML=`<div class="window">${localStorage.key(index)}</div>`
+    win.innerHTML=`<div class="window">${initialData[index].product}</div>`
     comments.innerHTML="";
-    JSON.parse(localStorage.getItem(localStorage.key(index))).forEach(item=>{
-        comments.insertAdjacentHTML("beforeend",`
-                <p class="comment">${item}</p>
-            `)
+    if(localStorage.hasOwnProperty(localStorage.key(index))){
+        JSON.parse(localStorage.getItem(localStorage.key(index))).forEach(item=>{
+            comments.insertAdjacentHTML("beforeend",`
+                    <p class="comment">${item}</p>
+                `)
+        });
+    }
+    
+}
+
+if(!localStorage.hasOwnProperty(localStorage.key(index))){
+    initialData.forEach((item)=>{
+        temp=[];
+        item.reviews.forEach((i)=>{
+            temp.push(i.text)
+        });
+        localStorage.setItem(item.product,JSON.stringify(temp));
     });
 }
 
@@ -75,7 +79,7 @@ document.getElementById("prev").addEventListener("click",()=>{
     if(index>0){
         index--;
     }else{
-        index=localStorage.length-1;
+        index=initialData.length-1;
     }
     fillTemplate();
     c_e.innerHTML='';
@@ -83,7 +87,7 @@ document.getElementById("prev").addEventListener("click",()=>{
 
 
 document.getElementById("next").addEventListener("click",()=>{
-    if(index<localStorage.length-1){
+    if(index<initialData.length-1){
         index++;
     }else{
         index=0;

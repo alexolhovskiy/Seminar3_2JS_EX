@@ -5,10 +5,13 @@ for(let key in localStorage){
     
     if (localStorage.hasOwnProperty(key)) {
         // console.log(key);
-        container.insertAdjacentHTML("beforeend",`
+        if(JSON.parse(localStorage.getItem(key)).length>0){
+            container.insertAdjacentHTML("beforeend",`
                 <button id="comment_b"><div class="window">${key}</div></button>
             `);
-        // console.log(localStorage.getItem(key));
+            // console.log(localStorage.getItem(key));
+        }
+        
     }
 }
 
