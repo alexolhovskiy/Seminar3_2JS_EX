@@ -53,8 +53,8 @@ function fillTemplate(){
 
     win.innerHTML=`<div class="window">${initialData[index].product}</div>`
     comments.innerHTML="";
-    if(localStorage.hasOwnProperty(localStorage.key(index))){
-        JSON.parse(localStorage.getItem(localStorage.key(index))).forEach(item=>{
+    if(localStorage.hasOwnProperty(initialData[index].product)){
+        JSON.parse(localStorage.getItem(initialData[index].product)).forEach(item=>{
             comments.insertAdjacentHTML("beforeend",`
                     <p class="comment">${item}</p>
                 `)
@@ -63,7 +63,7 @@ function fillTemplate(){
     
 }
 
-if(!localStorage.hasOwnProperty(localStorage.key(index))){
+if(!localStorage.hasOwnProperty(initialData[index].product)){
     initialData.forEach((item)=>{
         temp=[];
         item.reviews.forEach((i)=>{
@@ -105,9 +105,9 @@ document.getElementById("b_c").addEventListener("click",()=>{
         }else{
             c_e.innerHTML='';
             comment_id++;
-            let temp=JSON.parse(localStorage.getItem(localStorage.key(index)));
+            let temp=JSON.parse(localStorage.getItem(initialData[index].product));
             temp.push(t);
-            localStorage.setItem(localStorage.key(index),JSON.stringify(temp));
+            localStorage.setItem(initialData[index].product,JSON.stringify(temp));
         }
     }catch(error){
         c_e.innerHTML=error.message;
