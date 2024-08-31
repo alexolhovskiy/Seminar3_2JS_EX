@@ -1,8 +1,6 @@
 console.log("Hello");
 
 //1
-
-
 const initialData = [
     {
         product: "Apple iPhone 13",
@@ -37,6 +35,9 @@ const initialData = [
     },
 ];
 
+// localStorage.clear();
+
+
 initialData.forEach((item)=>{
     if(!localStorage.hasOwnProperty(item.product)){
         temp=[];
@@ -47,11 +48,7 @@ initialData.forEach((item)=>{
     }
 });
 
-// localStorage.clear();
-
-
 let index=0;
-let comment_id=4;
 
 let wrap=document.querySelector(".wrap");
 let win=document.querySelector(".window");
@@ -70,8 +67,6 @@ function fillTemplate(){
         });
     }    
 }
-
-
 
 
 fillTemplate();
@@ -105,7 +100,6 @@ document.getElementById("b_c").addEventListener("click",()=>{
             throw new Error("God! Are you crazy!? You write too short or too long message!");
         }else{
             c_e.innerHTML='';
-            comment_id++;
             let temp=JSON.parse(localStorage.getItem(initialData[index].product));
             temp.push(t);
             localStorage.setItem(initialData[index].product,JSON.stringify(temp));
