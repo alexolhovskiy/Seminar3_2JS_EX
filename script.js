@@ -37,6 +37,16 @@ const initialData = [
     },
 ];
 
+initialData.forEach((item)=>{
+    if(!localStorage.hasOwnProperty(item.product)){
+        temp=[];
+        item.reviews.forEach((i)=>{
+            temp.push(i.text)
+        });
+        localStorage.setItem(item.product,JSON.stringify(temp));
+    }
+});
+
 // localStorage.clear();
 
 
@@ -50,7 +60,6 @@ let c_e=document.querySelector("#e_c");
 
 
 function fillTemplate(){
-
     win.innerHTML=`<div class="window">${initialData[index].product}</div>`
     comments.innerHTML="";
     if(localStorage.hasOwnProperty(initialData[index].product)){
@@ -59,19 +68,11 @@ function fillTemplate(){
                     <p class="comment">${item}</p>
                 `)
         });
-    }
-    
+    }    
 }
 
-if(!localStorage.hasOwnProperty(initialData[index].product)){
-    initialData.forEach((item)=>{
-        temp=[];
-        item.reviews.forEach((i)=>{
-            temp.push(i.text)
-        });
-        localStorage.setItem(item.product,JSON.stringify(temp));
-    });
-}
+
+
 
 fillTemplate();
 
